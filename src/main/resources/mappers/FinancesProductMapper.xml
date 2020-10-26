@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.demo.mapper.FinancesProductMapper" >
+  <resultMap id="BaseResultMap" type="com.test.demo.entity.FinancesProduct" >
+    <id column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="p_name" property="pName" jdbcType="VARCHAR" />
+    <result column="p_amount" property="pAmount" jdbcType="INTEGER" />
+    <result column="p_year" property="pYear" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.test.demo.entity.FinancesProduct" extends="BaseResultMap" >
+    <result column="p_description" property="pDescription" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    p_id, p_name, p_amount, p_year
+  </sql>
+  <sql id="Blob_Column_List" >
+    p_description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from finances_product
+    where p_id = #{pId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from finances_product
+    where p_id = #{pId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.demo.entity.FinancesProduct" >
+    insert into finances_product (p_id, p_name, p_amount, 
+      p_year, p_description)
+    values (#{pId,jdbcType=INTEGER}, #{pName,jdbcType=VARCHAR}, #{pAmount,jdbcType=INTEGER}, 
+      #{pYear,jdbcType=INTEGER}, #{pDescription,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.demo.entity.FinancesProduct" >
+    insert into finances_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        p_id,
+      </if>
+      <if test="pName != null" >
+        p_name,
+      </if>
+      <if test="pAmount != null" >
+        p_amount,
+      </if>
+      <if test="pYear != null" >
+        p_year,
+      </if>
+      <if test="pDescription != null" >
+        p_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pName != null" >
+        #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pAmount != null" >
+        #{pAmount,jdbcType=INTEGER},
+      </if>
+      <if test="pYear != null" >
+        #{pYear,jdbcType=INTEGER},
+      </if>
+      <if test="pDescription != null" >
+        #{pDescription,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.demo.entity.FinancesProduct" >
+    update finances_product
+    <set >
+      <if test="pName != null" >
+        p_name = #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pAmount != null" >
+        p_amount = #{pAmount,jdbcType=INTEGER},
+      </if>
+      <if test="pYear != null" >
+        p_year = #{pYear,jdbcType=INTEGER},
+      </if>
+      <if test="pDescription != null" >
+        p_description = #{pDescription,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.test.demo.entity.FinancesProduct" >
+    update finances_product
+    set p_name = #{pName,jdbcType=VARCHAR},
+      p_amount = #{pAmount,jdbcType=INTEGER},
+      p_year = #{pYear,jdbcType=INTEGER},
+      p_description = #{pDescription,jdbcType=LONGVARBINARY}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.demo.entity.FinancesProduct" >
+    update finances_product
+    set p_name = #{pName,jdbcType=VARCHAR},
+      p_amount = #{pAmount,jdbcType=INTEGER},
+      p_year = #{pYear,jdbcType=INTEGER}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+</mapper>

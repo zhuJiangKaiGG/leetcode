@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.demo.mapper.InsuranceMapper" >
+  <resultMap id="BaseResultMap" type="com.test.demo.entity.Insurance" >
+    <id column="i_id" property="iId" jdbcType="INTEGER" />
+    <result column="i_name" property="iName" jdbcType="VARCHAR" />
+    <result column="i_amount" property="iAmount" jdbcType="INTEGER" />
+    <result column="i_person" property="iPerson" jdbcType="CHAR" />
+    <result column="i_year" property="iYear" jdbcType="INTEGER" />
+    <result column="i_project" property="iProject" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    i_id, i_name, i_amount, i_person, i_year, i_project
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from insurance
+    where i_id = #{iId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from insurance
+    where i_id = #{iId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.demo.entity.Insurance" >
+    insert into insurance (i_id, i_name, i_amount, 
+      i_person, i_year, i_project
+      )
+    values (#{iId,jdbcType=INTEGER}, #{iName,jdbcType=VARCHAR}, #{iAmount,jdbcType=INTEGER}, 
+      #{iPerson,jdbcType=CHAR}, #{iYear,jdbcType=INTEGER}, #{iProject,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.demo.entity.Insurance" >
+    insert into insurance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="iId != null" >
+        i_id,
+      </if>
+      <if test="iName != null" >
+        i_name,
+      </if>
+      <if test="iAmount != null" >
+        i_amount,
+      </if>
+      <if test="iPerson != null" >
+        i_person,
+      </if>
+      <if test="iYear != null" >
+        i_year,
+      </if>
+      <if test="iProject != null" >
+        i_project,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="iId != null" >
+        #{iId,jdbcType=INTEGER},
+      </if>
+      <if test="iName != null" >
+        #{iName,jdbcType=VARCHAR},
+      </if>
+      <if test="iAmount != null" >
+        #{iAmount,jdbcType=INTEGER},
+      </if>
+      <if test="iPerson != null" >
+        #{iPerson,jdbcType=CHAR},
+      </if>
+      <if test="iYear != null" >
+        #{iYear,jdbcType=INTEGER},
+      </if>
+      <if test="iProject != null" >
+        #{iProject,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.demo.entity.Insurance" >
+    update insurance
+    <set >
+      <if test="iName != null" >
+        i_name = #{iName,jdbcType=VARCHAR},
+      </if>
+      <if test="iAmount != null" >
+        i_amount = #{iAmount,jdbcType=INTEGER},
+      </if>
+      <if test="iPerson != null" >
+        i_person = #{iPerson,jdbcType=CHAR},
+      </if>
+      <if test="iYear != null" >
+        i_year = #{iYear,jdbcType=INTEGER},
+      </if>
+      <if test="iProject != null" >
+        i_project = #{iProject,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where i_id = #{iId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.demo.entity.Insurance" >
+    update insurance
+    set i_name = #{iName,jdbcType=VARCHAR},
+      i_amount = #{iAmount,jdbcType=INTEGER},
+      i_person = #{iPerson,jdbcType=CHAR},
+      i_year = #{iYear,jdbcType=INTEGER},
+      i_project = #{iProject,jdbcType=VARCHAR}
+    where i_id = #{iId,jdbcType=INTEGER}
+  </update>
+</mapper>

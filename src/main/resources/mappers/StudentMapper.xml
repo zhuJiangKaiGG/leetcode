@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.demo.mapper.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.test.demo.entity.Student">
+    <id column="std_id" jdbcType="INTEGER" property="stdId" />
+    <result column="std_name" jdbcType="VARCHAR" property="stdName" />
+    <result column="std_sex" jdbcType="VARCHAR" property="stdSex" />
+    <result column="std_birth" jdbcType="TIMESTAMP" property="stdBirth" />
+    <result column="std_in" jdbcType="TIMESTAMP" property="stdIn" />
+    <result column="std_address" jdbcType="VARCHAR" property="stdAddress" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    std_id, std_name, std_sex, std_birth, std_in, std_address
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where std_id = #{stdId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from student
+    where std_id = #{stdId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.demo.entity.Student">
+    insert into student (std_id, std_name, std_sex, 
+      std_birth, std_in, std_address
+      )
+    values (#{stdId,jdbcType=INTEGER}, #{stdName,jdbcType=VARCHAR}, #{stdSex,jdbcType=VARCHAR}, 
+      #{stdBirth,jdbcType=TIMESTAMP}, #{stdIn,jdbcType=TIMESTAMP}, #{stdAddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.demo.entity.Student">
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stdId != null">
+        std_id,
+      </if>
+      <if test="stdName != null">
+        std_name,
+      </if>
+      <if test="stdSex != null">
+        std_sex,
+      </if>
+      <if test="stdBirth != null">
+        std_birth,
+      </if>
+      <if test="stdIn != null">
+        std_in,
+      </if>
+      <if test="stdAddress != null">
+        std_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stdId != null">
+        #{stdId,jdbcType=INTEGER},
+      </if>
+      <if test="stdName != null">
+        #{stdName,jdbcType=VARCHAR},
+      </if>
+      <if test="stdSex != null">
+        #{stdSex,jdbcType=VARCHAR},
+      </if>
+      <if test="stdBirth != null">
+        #{stdBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stdIn != null">
+        #{stdIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stdAddress != null">
+        #{stdAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.demo.entity.Student">
+    update student
+    <set>
+      <if test="stdName != null">
+        std_name = #{stdName,jdbcType=VARCHAR},
+      </if>
+      <if test="stdSex != null">
+        std_sex = #{stdSex,jdbcType=VARCHAR},
+      </if>
+      <if test="stdBirth != null">
+        std_birth = #{stdBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stdIn != null">
+        std_in = #{stdIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stdAddress != null">
+        std_address = #{stdAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where std_id = #{stdId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.demo.entity.Student">
+    update student
+    set std_name = #{stdName,jdbcType=VARCHAR},
+      std_sex = #{stdSex,jdbcType=VARCHAR},
+      std_birth = #{stdBirth,jdbcType=TIMESTAMP},
+      std_in = #{stdIn,jdbcType=TIMESTAMP},
+      std_address = #{stdAddress,jdbcType=VARCHAR}
+    where std_id = #{stdId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from student
+  </select>
+</mapper>

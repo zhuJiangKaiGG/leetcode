@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.demo.mapper.BankCardMapper" >
+  <resultMap id="BaseResultMap" type="com.test.demo.entity.BankCard" >
+    <id column="b_number" property="bNumber" jdbcType="CHAR" />
+    <result column="b_type" property="bType" jdbcType="CHAR" />
+    <result column="b_c_id" property="bCId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    b_number, b_type, b_c_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bank_card
+    where b_number = #{bNumber,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bank_card
+    where b_number = #{bNumber,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.test.demo.entity.BankCard" >
+    insert into bank_card (b_number, b_type, b_c_id
+      )
+    values (#{bNumber,jdbcType=CHAR}, #{bType,jdbcType=CHAR}, #{bCId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.demo.entity.BankCard" >
+    insert into bank_card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bNumber != null" >
+        b_number,
+      </if>
+      <if test="bType != null" >
+        b_type,
+      </if>
+      <if test="bCId != null" >
+        b_c_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bNumber != null" >
+        #{bNumber,jdbcType=CHAR},
+      </if>
+      <if test="bType != null" >
+        #{bType,jdbcType=CHAR},
+      </if>
+      <if test="bCId != null" >
+        #{bCId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.demo.entity.BankCard" >
+    update bank_card
+    <set >
+      <if test="bType != null" >
+        b_type = #{bType,jdbcType=CHAR},
+      </if>
+      <if test="bCId != null" >
+        b_c_id = #{bCId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where b_number = #{bNumber,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.demo.entity.BankCard" >
+    update bank_card
+    set b_type = #{bType,jdbcType=CHAR},
+      b_c_id = #{bCId,jdbcType=INTEGER}
+    where b_number = #{bNumber,jdbcType=CHAR}
+  </update>
+</mapper>

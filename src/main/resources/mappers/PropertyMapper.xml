@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.demo.mapper.PropertyMapper" >
+  <resultMap id="BaseResultMap" type="com.test.demo.entity.Property" >
+    <id column="pro_id" property="proId" jdbcType="INTEGER" />
+    <result column="pro_c_id" property="proCId" jdbcType="INTEGER" />
+    <result column="pro_status" property="proStatus" jdbcType="CHAR" />
+    <result column="pro_quantity" property="proQuantity" jdbcType="INTEGER" />
+    <result column="pro_income" property="proIncome" jdbcType="INTEGER" />
+    <result column="pro_purchase_time" property="proPurchaseTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pro_id, pro_c_id, pro_status, pro_quantity, pro_income, pro_purchase_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from property
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from property
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.demo.entity.Property" >
+    insert into property (pro_id, pro_c_id, pro_status, 
+      pro_quantity, pro_income, pro_purchase_time
+      )
+    values (#{proId,jdbcType=INTEGER}, #{proCId,jdbcType=INTEGER}, #{proStatus,jdbcType=CHAR}, 
+      #{proQuantity,jdbcType=INTEGER}, #{proIncome,jdbcType=INTEGER}, #{proPurchaseTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.demo.entity.Property" >
+    insert into property
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="proCId != null" >
+        pro_c_id,
+      </if>
+      <if test="proStatus != null" >
+        pro_status,
+      </if>
+      <if test="proQuantity != null" >
+        pro_quantity,
+      </if>
+      <if test="proIncome != null" >
+        pro_income,
+      </if>
+      <if test="proPurchaseTime != null" >
+        pro_purchase_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proId != null" >
+        #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="proCId != null" >
+        #{proCId,jdbcType=INTEGER},
+      </if>
+      <if test="proStatus != null" >
+        #{proStatus,jdbcType=CHAR},
+      </if>
+      <if test="proQuantity != null" >
+        #{proQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="proIncome != null" >
+        #{proIncome,jdbcType=INTEGER},
+      </if>
+      <if test="proPurchaseTime != null" >
+        #{proPurchaseTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.demo.entity.Property" >
+    update property
+    <set >
+      <if test="proCId != null" >
+        pro_c_id = #{proCId,jdbcType=INTEGER},
+      </if>
+      <if test="proStatus != null" >
+        pro_status = #{proStatus,jdbcType=CHAR},
+      </if>
+      <if test="proQuantity != null" >
+        pro_quantity = #{proQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="proIncome != null" >
+        pro_income = #{proIncome,jdbcType=INTEGER},
+      </if>
+      <if test="proPurchaseTime != null" >
+        pro_purchase_time = #{proPurchaseTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.demo.entity.Property" >
+    update property
+    set pro_c_id = #{proCId,jdbcType=INTEGER},
+      pro_status = #{proStatus,jdbcType=CHAR},
+      pro_quantity = #{proQuantity,jdbcType=INTEGER},
+      pro_income = #{proIncome,jdbcType=INTEGER},
+      pro_purchase_time = #{proPurchaseTime,jdbcType=TIMESTAMP}
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </update>
+</mapper>

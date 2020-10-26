@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.demo.mapper.ClientMapper" >
+  <resultMap id="BaseResultMap" type="com.test.demo.entity.Client" >
+    <id column="c_id" property="cId" jdbcType="INTEGER" />
+    <result column="c_name" property="cName" jdbcType="VARCHAR" />
+    <result column="c_mail" property="cMail" jdbcType="CHAR" />
+    <result column="c_id_card" property="cIdCard" jdbcType="CHAR" />
+    <result column="c_phone" property="cPhone" jdbcType="CHAR" />
+    <result column="c_password" property="cPassword" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_name, c_mail, c_id_card, c_phone, c_password
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from client
+    where c_id = #{cId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from client
+    where c_id = #{cId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.demo.entity.Client" >
+    insert into client (c_id, c_name, c_mail, 
+      c_id_card, c_phone, c_password)
+    values (#{cId,jdbcType=INTEGER}, #{cName,jdbcType=VARCHAR}, #{cMail,jdbcType=CHAR}, 
+      #{cIdCard,jdbcType=CHAR}, #{cPhone,jdbcType=CHAR}, #{cPassword,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.demo.entity.Client" >
+    insert into client
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="cName != null" >
+        c_name,
+      </if>
+      <if test="cMail != null" >
+        c_mail,
+      </if>
+      <if test="cIdCard != null" >
+        c_id_card,
+      </if>
+      <if test="cPhone != null" >
+        c_phone,
+      </if>
+      <if test="cPassword != null" >
+        c_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="cName != null" >
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cMail != null" >
+        #{cMail,jdbcType=CHAR},
+      </if>
+      <if test="cIdCard != null" >
+        #{cIdCard,jdbcType=CHAR},
+      </if>
+      <if test="cPhone != null" >
+        #{cPhone,jdbcType=CHAR},
+      </if>
+      <if test="cPassword != null" >
+        #{cPassword,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.demo.entity.Client" >
+    update client
+    <set >
+      <if test="cName != null" >
+        c_name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cMail != null" >
+        c_mail = #{cMail,jdbcType=CHAR},
+      </if>
+      <if test="cIdCard != null" >
+        c_id_card = #{cIdCard,jdbcType=CHAR},
+      </if>
+      <if test="cPhone != null" >
+        c_phone = #{cPhone,jdbcType=CHAR},
+      </if>
+      <if test="cPassword != null" >
+        c_password = #{cPassword,jdbcType=CHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.demo.entity.Client" >
+    update client
+    set c_name = #{cName,jdbcType=VARCHAR},
+      c_mail = #{cMail,jdbcType=CHAR},
+      c_id_card = #{cIdCard,jdbcType=CHAR},
+      c_phone = #{cPhone,jdbcType=CHAR},
+      c_password = #{cPassword,jdbcType=CHAR}
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+</mapper>

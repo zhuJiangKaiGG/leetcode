@@ -1,43 +1,32 @@
 package com.test.demo.test;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodType;
+import java.util.List;
+
+import static java.lang.invoke.MethodHandles.lookup;
+
 /**
  * @Author :zjk
  * @Date :Create in 10:53 2020-10-27
  * @Description jvm第八章实战
  **/
 public class EightSection {
-    class GrandFather {
-        void thinking(){
-            System.out.println("i am grandfather");
-        }
-    }
-    class Father extends GrandFather{
-        void thinking() {
-            System.out.println("i am father");
-        }
-    }
-    class Son extends Father{
-        void thinking(){
-         //   System.out.println("i am son");
-//            GrandFather grandFather = new GrandFather();
-//            grandFather.thinking();
-            try {
-                Class grandFather = Class.forName("com.test.demo.test.EightSection$GrandFather");
-                try {
-                    GrandFather g =(GrandFather) grandFather.newInstance();
-                    g.thinking();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
 
     public static void main(String[] args) {
-        new EightSection().new Son().thinking();
+        Integer a = 1;
+        Integer b = 2;
+        Integer c = 3;
+        Integer d = 3;
+        Integer e = 300;
+        Integer f = 200;
+        Integer h = 500;
+        Long g = 3L;
+        System.out.println(h == (e + f));
+        System.out.println(c.equals(a + b));
+        System.out.println(g == (a + b));
+        System.out.println(g.equals(a + b));
     }
+
 }
